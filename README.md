@@ -2,12 +2,12 @@
 
 ## Step to pull and install the helm chart
 
-  helm repo add fluent https://fluent.github.io/helm-charts
-  helm repo update
-  helm pull fluent/fluentd --untar  # with this you will get untar fluentd chart including all files(template , values.yaml)
-  helm install fluent fluent/fluentd
-  helm upgrade fluentd ./fluentd    ----> after making any changes in chart, you can use helm upgrade for reflecting the effect on running fluentd pods.. here ./fluentd is fluentd chart name in current directory.
- 
+      helm repo add fluent https://fluent.github.io/helm-charts
+      helm repo update
+      helm pull fluent/fluentd --untar  # with this you will get untar fluentd chart including all files(template , values.yaml)
+      helm install fluent fluent/fluentd
+      helm upgrade fluentd ./fluentd    ----> after making any changes in chart, you can use helm upgrade for reflecting the effect on running fluentd pods.. here ./fluentd is fluentd chart name in current directory.
+     
 
 
 ## Troubleshooting
