@@ -19,6 +19,10 @@
 
     curl -u "elastic:password" -X DELETE "https://my-deployment-619a2a.es.us-central1.gcp.cloud.es.io:443/world-learning"
 
+## Query to check logs are being send to elastic cloud or not while index is already been sent there.
+
+      curl -u "elastic:EWsTCrASie5n60gQcbMEArtY" -X GET "https://my-deployment-619a2a.es.us-central1.gcp.cloud.es.io/world-learning-test/_search?pretty"
+
 ## Verify that your Elasticsearch cluster is up and running, and check its health status. You can do this by sending a request to the _cluster/health endpoint:
 
     curl -X GET "https://my-deployment-619a2a.es.us-central1.gcp.cloud.es.io/_cluster/health" -u elastic:password
