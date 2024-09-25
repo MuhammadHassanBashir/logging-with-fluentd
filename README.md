@@ -27,3 +27,5 @@
 
     curl -X GET "https://my-deployment-619a2a.es.us-central1.gcp.cloud.es.io/_cluster/health" -u elastic:password
 
+## view kibana mapping
+     curl -u "elastic:EWsTCrASie5n60gQcbMEArtY" -X GET "https://my-deployment-619a2a.es.us-central1.gcp.cloud.es.io/world-learning-test/_mapping"  
