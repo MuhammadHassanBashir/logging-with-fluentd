@@ -170,10 +170,10 @@ It successfully sent the logs. I found this command error details by using these
             
 ## Elastic cloud creating dataview with index 
 
-      Once everything workings file. You can found fluentd logs with no error. 
+      Once everything workings fine. You will found fluentd microservice logs having no error. 
 
       Then go to elastic cloud kibana section > stack management > index management and confirm your sent index. You should see it here. 
 
       Now for creating data view with index , go to kibana section > stack management > data view > create data view > and find your sent index and also select timestamp, give name to index and save it.
 
-      for Log Visualization, go to Discover and select created data view and it will give you the micro services logs on elastic cloud..
+      for Log Visualization, go to Discover and select created data view and it will give you the kubernetes micro services logs on elastic cloud..
