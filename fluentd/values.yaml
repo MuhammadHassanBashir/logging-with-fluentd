@@ -300,20 +300,7 @@ fileConfigs:
       tag kubernetes.*
       read_from_head true
       <parse>
-        @type multi_format
-        <pattern>
-          format json
-          time_key time
-          time_type string
-          time_format "%Y-%m-%dT%H:%M:%S.%NZ"
-          keep_time_key false
-        </pattern>
-        <pattern>
-          format regexp
-          expression /^(?<time>.+) (?<stream>stdout|stderr)( (.))? (?<log>.*)$/
-          time_format '%Y-%m-%dT%H:%M:%S.%NZ'
-          keep_time_key false
-        </pattern>
+        @type none  # No specific format, treat logs as plain text
       </parse>
       emit_unmatched_lines true
     </source>
@@ -325,6 +312,8 @@ fileConfigs:
       port 24231
       metrics_path /metrics
     </source>
+
+    
 
   02_filters.conf: |-
     <label @KUBERNETES>
@@ -341,8 +330,8 @@ fileConfigs:
       <filter kubernetes.**>
         @type kubernetes_metadata
         @id filter_kube_metadata
-        skip_labels false
-        skip_container_metadata false
+        skip_labels true
+        skip_container_metadata true
         skip_namespace_metadata true
         skip_master_url true
       </filter>
@@ -378,6 +367,8 @@ fileConfigs:
     <label @OUTPUT>
       <match **>
         @type elasticsearch
+        @log_level debug
+        log_es_400_reason true
         cloud_id "My-deployment:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyQxYWJlNDQ4ZjBmN2I0NzUzYTFkZWMyYjhiMTVhOGUxNCRjYzk0N2NkYTRjNzM0ODFmYWRhZjNmOTE1OWU2Yzg4MQ=="
         cloud_auth "elastic:EWsTCrASie5n60gQcbMEArtY"
         Include_Tag_Key true
@@ -386,8 +377,14 @@ fileConfigs:
         tls.verify Off 
         index_name "world-learning-test"
         Suppress_Type_Name On
-        time_key time
+        time_key @timestamp  # Set time_key to @timestamp
         time_format "%Y-%m-%dT%H:%M:%S.%NZ"
+        <inject>
+          time_key @timestamp
+          time_type string
+          time_format %Y-%m-%dT%H:%M:%S.%NZ
+          tag_key fluentd_tag
+        </inject>
       </match>
     </label>
 
