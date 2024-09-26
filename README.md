@@ -143,7 +143,7 @@ It successfully sent the logs. I found this command error details by using these
 
 ## Facing issues on sending @timestamps from fluentd to elastic cloud.
 
-      I only added this flag **include_timestamp true** under output file named 04_outputs.conf.. It will send timestamp to elastic cloud.
+      I only added this flag **include_timestamp true** under output file named 04_outputs.conf.. It will send timestamp to elastic cloud. 
 
       Complete correct output file..
 
@@ -159,7 +159,7 @@ It successfully sent the logs. I found this command error details by using these
               Tag_Key tags
               tls On
               tls.verify Off 
-              index_name "world-learning-test"
+              index_name "world-learning-test"                  # fluentd send this index name to elastic cloud
               Suppress_Type_Name On
               time_key @timestamp  # Set time_key to @timestamp
               time_format "%Y-%m-%dT%H:%M:%S.%NZ"
@@ -167,5 +167,13 @@ It successfully sent the logs. I found this command error details by using these
             </match>
           </label>
 
-             
-      
+            
+## Elastic cloud creating dataview with index 
+
+      Once everything workings file. You can found fluentd logs with no error. 
+
+      Then go to elastic cloud kibana section > stack management > index management and confirm your sent index. You should see it here. 
+
+      Now for creating data view with index , go to kibana section > stack management > data view > create data view > and find your sent index and also select timestamp, give name to index and save it.
+
+      for Log Visualization, go to Discover and select created data view and it will give you the micro services logs on elastic cloud..
