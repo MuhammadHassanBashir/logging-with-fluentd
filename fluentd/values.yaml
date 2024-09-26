@@ -379,6 +379,7 @@ fileConfigs:
         Suppress_Type_Name On
         time_key @timestamp  # Set time_key to @timestamp
         time_format "%Y-%m-%dT%H:%M:%S.%NZ"
+        include_timestamp true
         <inject>
           time_key @timestamp
           time_type string
@@ -387,8 +388,6 @@ fileConfigs:
         </inject>
       </match>
     </label>
-
-
 
 ingress:
   enabled: false
