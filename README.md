@@ -32,7 +32,13 @@
 
 ## facing error Rejection from elastic search.
 
-      I was facing issue while using json format during **parsing** in fluentd config file <source-section: source.conf >. i have change into plain text. it send the logs successfully.. I found this command error details by using these flags in **output-section: output.conf** **@log_level debug and  log_es_400_reason true**. i was sending logs in json object format but elastic cloud is excepting string.. I confirm it my viewing mapping through GUI or using  this qury **curl -u "elastic:EWsTCrASie5n60gQcbMEArtY" -X GET "https://my-deployment-619a2a.es.us-central1.gcp.cloud.es.io/world-learning-test/_mapping" **
+      I was facing issue while using json format during **parsing** in fluentd config file <source-section: source.conf >. i have changed it to plain text by selecting type to none in <source-section: source.conf >.
+
+          **<parse>
+              @type none  # No specific format, treat logs as plain text
+          </parse>** 
+
+It successfully sent the logs. I found this command error details by using these flags in **output-section: output.conf** **@log_level debug and  log_es_400_reason true**. i was sending logs in json object format but elastic cloud was excepting string.. I confirm it my viewing mapping through GUI or using  this qury **curl -u "elastic:EWsTCrASie5n60gQcbMEArtY" -X GET "https://my-deployment-619a2a.es.us-central1.gcp.cloud.es.io/world-learning-test/_mapping" **
 
       fileConfigs:
         01_sources.conf: |-
@@ -134,5 +140,32 @@
             </match>
           </label>
       
-      
+
+## Facing issues on sending @timestamps from fluentd to elastic cloud.
+
+      I only added this flag **include_timestamp true** under output file named 04_outputs.conf.. It will send timestamp to elastic cloud.
+
+      Complete correct output file..
+
+            04_outputs.conf: |-
+          <label @OUTPUT>
+            <match **>
+              @type elasticsearch
+              @log_level debug
+              log_es_400_reason true
+              cloud_id "My-deployment:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvOjQ0MyQxYWJlNDQ4ZjBmN2I0NzUzYTFkZWMyYjhiMTVhOGUxNCRjYzk0N2NkYTRjNzM0ODFmYWRhZjNmOTE1OWU2Yzg4MQ=="
+              cloud_auth "elastic:EWsTCrASie5n60gQcbMEArtY"
+              Include_Tag_Key true
+              Tag_Key tags
+              tls On
+              tls.verify Off 
+              index_name "world-learning-test"
+              Suppress_Type_Name On
+              time_key @timestamp  # Set time_key to @timestamp
+              time_format "%Y-%m-%dT%H:%M:%S.%NZ"
+              include_timestamp true
+            </match>
+          </label>
+
+             
       
